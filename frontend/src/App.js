@@ -58,7 +58,7 @@ function App() {
             }}
         />
 
-        <button className="btn btn-primary" onClick={addIngredient}>
+        <button className="btn custom-orange-btn" onClick={addIngredient}>
           Add Ingredient
         </button>
       </div>
@@ -79,5 +79,6 @@ function App() {
   );
 
 }
+
 
 export default App;
