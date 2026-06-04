@@ -1,10 +1,9 @@
 /**
- * @file ./client/src/App.js
+ * @file ./frontend/src/App.js
  * @author Camden Smith
  * @course CIS350
- * @assignment Assignment 1
- * @date 5/22/2026
- * @brief React client for displaying and creating fish entries.
+ * @date 6/4/2026
+ * @brief React client for displaying and creating ingredients.
  */
 
 import "./App.css";
@@ -12,32 +11,26 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 
 function App() {
-  const [listOfFish, setListOfFish] = useState([]);
-  const [fish, setFish] = useState("");
-  const [length, setLength] = useState(0);
-  const [weight, setWeight] = useState(0);
-  const [location, setLocation] = useState("");
+  const [listOfIngredients, setListOfIngredients] = useState([]);
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/getFish").then((response) => {
-      setListOfFish(response.data);
+    Axios.get("http://localhost:3001/getIngredients").then((response) => {
+      setListOfIngredients(response.data);
     });
   }, []);
 
-  const createFish = () => {
-    Axios.post("http://localhost:3001/createFish", {
-      fish,
-      length,
-      weight,
-      location,
+  const createIngredient = () => {
+    Axios.post("http://localhost:3001/createIngredient", {
+      name,
+      quantity,
     }).then((response) => {
-      setListOfFish([
-        ...listOfFish,
+      setListOfIngredients([
+        ...listOfIngredients,
         {
-          fish,
-          length,
-          weight,
-          location,
+          name,
+          quantity,
         },
       ]);
     });
@@ -45,14 +38,13 @@ function App() {
 
   return (
     <div className="App">
-      <div className="fishDisplay">
-        {listOfFish.map((f) => {
+      <div className="ingredientDisplay">
+        {listOfIngredients.map((i) => {
           return (
             <div>
-              <h1>Fish: {f.fish}</h1>
-              <h3>Length: {f.length}</h3>
-              <h3>Weight: {f.weight}</h3>
-              <h3>Location: {f.location}</h3>
+              <h1>
+                {i.quantity} {i.name}
+              </h1>
             </div>
           );
         })}
@@ -60,35 +52,20 @@ function App() {
       <div>
         <input
           type="text"
-          placeholder="Fish..."
+          placeholder="Name..."
           onChange={(event) => {
-            setFish(event.target.value);
+            setName(event.target.value);
           }}
         />
         <input
           type="number"
           step="0.1"
-          placeholder="Length..."
+          placeholder="Quantity..."
           onChange={(event) => {
-            setLength(parseFloat(event.target.value));
+            setQuantity(parseFloat(event.target.value));
           }}
         />
-        <input
-          type="number"
-          step="0.1"
-          placeholder="Weight..."
-          onChange={(event) => {
-            setWeight(parseFloat(event.target.value));
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Location..."
-          onChange={(event) => {
-            setLocation(event.target.value);
-          }}
-        />
-        <button onClick={createFish}> Create Fish </button>
+        <button onClick={createIngredient}> Add Ingredient </button>
       </div>
     </div>
   );
