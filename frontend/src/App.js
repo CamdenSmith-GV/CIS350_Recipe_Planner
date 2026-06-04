@@ -7,68 +7,77 @@
  */
 
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
 function App() {
-  const [listOfIngredients, setListOfIngredients] = useState([]);
-  const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [ingredientName, setIngredientName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [ingredients, setIngredients] = useState([]);
 
-  useEffect(() => {
-    Axios.get("http://localhost:3001/getIngredients").then((response) => {
-      setListOfIngredients(response.data);
-    });
-  }, []);
+  const addIngredient = () => 
+    {
+      const newIngredient = 
+      {
+        name: ingredientName,
+        quantity: quantity,
+      };
 
-  const createIngredient = () => {
-    Axios.post("http://localhost:3001/createIngredient", {
-      name,
-      quantity,
-    }).then((response) => {
-      setListOfIngredients([
-        ...listOfIngredients,
-        {
-          name,
-          quantity,
-        },
-      ]);
-    });
-  };
+      setIngredients([...ingredients, newIngredient,]);
 
-  return (
-    <div className="App">
-      <div className="ingredientDisplay">
-        {listOfIngredients.map((i) => {
-          return (
-            <div>
-              <h1>
-                {i.quantity} {i.name}
-              </h1>
-            </div>
-          );
-        })}
-      </div>
-      <div>
+      setIngredientName("");
+      setQuantity("");
+   };
+  
+
+ return (
+    <div className="container mt-4">
+      <div className="card p-4 mb-4 shadow-sm">
+        <h1 className="mb-3">Recipe Planner</h1>
+
         <input
+          className="form-control mb-2"
           type="text"
-          placeholder="Name..."
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
+          placeholder="Ingredient name..."
+          value={ingredientName}
+          onChange={(event) => 
+            {
+              setIngredientName(event.target.value);
+            }}
         />
+
         <input
-          type="number"
-          step="0.1"
+          className="form-control mb-3"
+          type="text"
           placeholder="Quantity..."
-          onChange={(event) => {
-            setQuantity(parseFloat(event.target.value));
-          }}
+          value={quantity}
+          onChange={(event) => 
+            {
+              setQuantity(event.target.value);
+            }}
         />
-        <button onClick={createIngredient}> Add Ingredient </button>
+
+        <button className="btn btn-primary" onClick={addIngredient}>
+          Add Ingredient
+        </button>
+      </div>
+
+      <div className="card p-4 shadow-sm">
+        <h2>Current Ingredients</h2>
+
+        {ingredients.map((ingredient, index) => 
+          {
+            return (
+              <p key={index}>
+                {ingredient.quantity} {ingredient.name}
+              </p>
+            );
+          })}
       </div>
     </div>
   );
+
 }
 
 export default App;
