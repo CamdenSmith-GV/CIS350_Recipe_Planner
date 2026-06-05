@@ -8,21 +8,21 @@
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import { VOLUME_UNITS, MASS_UNITS, emptyRow } from "../constants";
+import { VOLUME_UNITS, MASS_UNITS, createEmptyIngredient } from "../constants";
 
 function RecipePlanner()
 {
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredientList, setIngredientList] = useState([]);
   const [instructions, setInstructions] = useState("");
   const [hours, setHours] = useState("0");
   const [minutes, setMinutes] = useState("0");
-  const [row, setRow] = useState(emptyRow());
+  const [currentIngredient, setCurrentIngredient] = useState(createEmptyIngredient());
 
   const hourOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   const updateRow = (changes) =>
   {
-    setRow((current) => ({ ...current, ...changes }));
+    setCurrentIngredient((current) => ({ ...current, ...changes }));
   };
 
   const handleMeasurementTypeChange = (measurementType) =>
@@ -32,20 +32,20 @@ function RecipePlanner()
 
   const addIngredient = () =>
   {
-    if (row.name.trim() === "") {
+    if (currentIngredient.name.trim() === "") {
       return;
     }
-    setIngredients([...ingredients, row]);
-    setRow(emptyRow());
+    setIngredientList([...ingredientList, currentIngredient]);
+    setCurrentIngredient(createEmptyIngredient());
   };
 
   let unitOptions = [];
 
-  if (row.measurementType === "volume")
+  if (currentIngredient.measurementType === "volume")
   {
     unitOptions = VOLUME_UNITS;
   }
-  else if (row.measurementType === "mass")
+  else if (currentIngredient.measurementType === "mass")
   {
     unitOptions = MASS_UNITS;
   }
@@ -72,7 +72,7 @@ function RecipePlanner()
                 className="form-control"
                 type="text"
                 placeholder="Ingredient..."
-                value={row.name}
+                value={currentIngredient.name}
                 onChange={(event) => updateRow({ name: event.target.value })}
               />
             </div>
@@ -81,7 +81,7 @@ function RecipePlanner()
             <div className="col-auto">
               <select
                 className="form-select"
-                value={row.measurementType}
+                value={currentIngredient.measurementType}
                 onChange={(event) =>
                   handleMeasurementTypeChange(event.target.value)
                 }
@@ -98,7 +98,7 @@ function RecipePlanner()
               <div className="col-auto">
                 <select
                   className="form-select"
-                  value={row.unit}
+                  value={currentIngredient.unit}
                   onChange={(event) => updateRow({ unit: event.target.value })}
                 >
                   <option value="">Unit...</option>
@@ -113,13 +113,13 @@ function RecipePlanner()
             )}
 
             {/* Amount box (shown once a measurement type is chosen) */}
-            {row.measurementType !== "" && (
+            {currentIngredient.measurementType !== "" && (
               <div className="col-auto">
                 <input
                   className="form-control"
                   type="number"
                   placeholder="Amount..."
-                  value={row.amount}
+                  value={currentIngredient.amount}
                   onChange={(event) => updateRow({ amount: event.target.value })}
                 />
               </div>
@@ -138,7 +138,7 @@ function RecipePlanner()
           <div className="card p-4 shadow-sm">
             <h2>Current Ingredients</h2>
 
-            {ingredients.map((ingredient, index) => (
+            {ingredientList.map((ingredient, index) => (
               <p key={index}>{formatIngredient(ingredient)}</p>
             ))}
           </div>
