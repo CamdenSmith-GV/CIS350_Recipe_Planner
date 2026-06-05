@@ -17,7 +17,9 @@ export const createEmptyIngredient = () =>
   amount: "", 
 });
 
-export const recipe = () =>
+export const createRecipe = (ingredientList, instructions, hours, minutes) =>
 ({
-
-})
+  ingredients: ingredientList,
+  instructions: instructions,
+  cookTimeMinutes: Number(hours) * 60 + Number(minutes),
+});

@@ -8,7 +8,13 @@
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import { VOLUME_UNITS, MASS_UNITS, createEmptyIngredient } from "../constants";
+import 
+{
+  VOLUME_UNITS,
+  MASS_UNITS,
+  createEmptyIngredient,
+  createRecipe
+} from "../constants";
 
 function RecipePlanner()
 {
@@ -19,6 +25,7 @@ function RecipePlanner()
   const [currentIngredient, setCurrentIngredient] = useState(createEmptyIngredient());
 
   const hourOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const minuteOptions = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 
   const updateRow = (changes) =>
   {
@@ -161,6 +168,10 @@ function RecipePlanner()
 
       <div className="row g-4">
         <div className="col-md-1">
+          <h4>Cook Time:</h4>
+        </div>
+
+        <div className="col-md-1">
           <select
             className="form-select"
             value={hours}
@@ -173,6 +184,23 @@ function RecipePlanner()
             ))}
           </select>
         </div>
+        
+        <div className="col-md-1">
+          <select
+          className="form-select"
+          value={minutes}
+          onChange={(event) => setMinutes(event.target.value)}
+          >
+            {minuteOptions.map((minute) => (
+              <option value={minute} key={minute}>
+                {minute} minute{minute !== 1 && "s"}
+              </option>
+            ))}
+
+          </select>
+        </div>
+
+
       </div>
     </div>
   );
