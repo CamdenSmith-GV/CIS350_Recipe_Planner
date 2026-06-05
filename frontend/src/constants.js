@@ -12,7 +12,7 @@ export const MASS_UNITS = ["oz", "lbs", "g", "kg"];
 export const emptyRow = () =>
 ({
   name: "",
-  measurementType: "", // quantity, volume, mass
-  unit: "", // unit for volume and mass
-  amount: "", // the amount typed in
+  measurementType: "", 
+  unit: "",
+  amount: "", 
 });
