@@ -34,6 +34,17 @@ function RecipePlanner()
     setRow(emptyRow());
   };
 
+  let unitOptions = [];
+
+  if (row.measurementType === "volume")
+  {
+    unitOptions = VOLUME_UNITS;
+  }
+  else if (row.measurementType === "mass")
+  {
+    unitOptions = MASS_UNITS;
+  }
+
   const formatIngredient = (ingredient) => 
   {
     if (ingredient.measurementType === "quantity")
@@ -75,11 +86,10 @@ function RecipePlanner()
                   <option value="volume">Volume</option>
                   <option value="mass">Mass</option>
                 </select>
-              </div>
+              </div> 
 
-              {/* Unit dropdown (only for volume / mass) */}
-              {(row.measurementType === "volume" ||
-                row.measurementType === "mass") && (
+              {/* Unit dropdown */}
+              {unitOptions.length > 0 && (
                 <div className="col-auto">
                   <select
                     className="form-select"
@@ -87,10 +97,8 @@ function RecipePlanner()
                     onChange={(event) => updateRow({ unit: event.target.value })}
                   >
                     <option value="">Unit...</option>
-                    {(row.measurementType === "volume"
-                      ? VOLUME_UNITS
-                      : MASS_UNITS
-                    ).map((unit) => (
+
+                    {unitOptions.map((unit) => (
                       <option value={unit} key={unit}>
                         {unit}
                       </option>
@@ -120,7 +128,7 @@ function RecipePlanner()
               Add Ingredient
             </button>
           </div>
-          
+
           <div className="col-md-6">
             <div className="card p-4 shadow-sm">
               <h2>Current Ingredients</h2>
