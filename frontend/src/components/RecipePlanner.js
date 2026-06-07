@@ -18,7 +18,9 @@ import
 
 function RecipePlanner()
 {
+  const [savedRecipes, setSavedRecipes] = useState([]);
   const [ingredientList, setIngredientList] = useState([]);
+  const [recipName, setName] = useState("");
   const [instructions, setInstructions] = useState("");
   const [hours, setHours] = useState("0");
   const [minutes, setMinutes] = useState("0");
@@ -66,9 +68,43 @@ function RecipePlanner()
     return `${ingredient.amount} ${ingredient.unit} ${ingredient.name}`;
   };
 
+  const addRecipe = () =>
+  {
+    if (ingredientList.length === 0) {
+      return;
+    }
+
+    const recipe = createRecipe(recipName, ingredientList, instructions, hours, minutes);
+
+    // recipe will be sent to the backend later
+    setSavedRecipes([...savedRecipes, recipe]);
+
+    // Reset the form for the next recipe.
+    setIngredientList([]);
+    setInstructions("");
+    setHours("0");
+    setMinutes("0");
+    setCurrentIngredient(createEmptyIngredient());
+  };
+
   return (
-    <div className="container-fluid mt-4">
-      <h1 className="mb-3">Recipe Planner</h1>
+    <div className="container-fluid mt-4 p-4 recipe-page">
+      <h1 className="mb-3 recipe-title">Recipe Planner</h1>
+
+      <div className="row g-4">
+        <div className="col-auto">
+          <h4 className="mb-3 recipe-heading">Recipe Name:</h4>
+        </div>
+        <div className="col-md-2">
+          <input
+            className="form-control recipe-input"
+            type="text"
+            placeholder="Name..."
+            value={recipName}
+            onChange={(event) => setName(event.target.value)}
+          />
+        </div>
+      </div>
       <div className="row g-4">
         <div className="col-md-6">
           {/* Ingrediant enter col*/}
@@ -76,7 +112,7 @@ function RecipePlanner()
             {/* Ingredient name */}
             <div className="col">
               <input
-                className="form-control"
+                className="form-control recipe-input"
                 type="text"
                 placeholder="Ingredient..."
                 value={currentIngredient.name}
@@ -87,7 +123,7 @@ function RecipePlanner()
             {/* Measurement type dropdown */}
             <div className="col-auto">
               <select
-                className="form-select"
+                className="form-select recipe-input"
                 value={currentIngredient.measurementType}
                 onChange={(event) =>
                   handleMeasurementTypeChange(event.target.value)
@@ -104,7 +140,7 @@ function RecipePlanner()
             {unitOptions.length > 0 && (
               <div className="col-auto">
                 <select
-                  className="form-select"
+                  className="form-select recipe-input"
                   value={currentIngredient.unit}
                   onChange={(event) => updateRow({ unit: event.target.value })}
                 >
@@ -123,7 +159,7 @@ function RecipePlanner()
             {currentIngredient.measurementType !== "" && (
               <div className="col-auto">
                 <input
-                  className="form-control"
+                  className="form-control recipe-input"
                   type="number"
                   placeholder="Amount..."
                   value={currentIngredient.amount}
@@ -134,7 +170,7 @@ function RecipePlanner()
           </div>
 
           <button
-            className="btn custom-orange-btn mt-2"
+            className="btn custom-green-btn mt-2"
             onClick={addIngredient}
           >
             Add Ingredient
@@ -142,22 +178,22 @@ function RecipePlanner()
         </div>
 
         <div className="col-md-6">
-          <div className="card p-4 shadow-sm">
+          <div className="card recipe-card p-4 shadow-sm">
             <h2>Current Ingredients</h2>
 
             {ingredientList.map((ingredient, index) => (
-              <p key={index}>{formatIngredient(ingredient)}</p>
+              <p key={index} className="recipe-ingredient-item">{formatIngredient(ingredient)}</p>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="row g-4">
+      <div className="row g-4 mt-1">
         {/* Enter Instructions */}
         <div className="col-md-6">
-          <h4>Instructions:</h4>
+          <h4 className="recipe-heading">Instructions:</h4>
           <textarea
-            className="form-control"
+            className="form-control recipe-input"
             placeholder="Instructions..."
             rows="5"
             value={instructions}
@@ -166,14 +202,14 @@ function RecipePlanner()
         </div>
       </div>
 
-      <div className="row g-4">
+      <div className="row g-4 mt-1">
         <div className="col-md-1">
-          <h4>Cook Time:</h4>
+          <h4 className="recipe-heading">Cook Time:</h4>
         </div>
 
         <div className="col-md-1">
           <select
-            className="form-select"
+            className="form-select recipe-input"
             value={hours}
             onChange={(event) => setHours(event.target.value)}
           >
@@ -187,7 +223,7 @@ function RecipePlanner()
         
         <div className="col-md-1">
           <select
-          className="form-select"
+          className="form-select recipe-input"
           value={minutes}
           onChange={(event) => setMinutes(event.target.value)}
           >
@@ -199,9 +235,19 @@ function RecipePlanner()
 
           </select>
         </div>
-
-
       </div>
+
+      <div className="row g-4 mt-1">
+        <div className="col-md-1">
+           <button
+            className="btn custom-orange-btn mt-2"
+            onClick={addRecipe}
+          >
+            Add Recipe
+          </button>
+        </div>
+      </div>
+
     </div>
   );
 }

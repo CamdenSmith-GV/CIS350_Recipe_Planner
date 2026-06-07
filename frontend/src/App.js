@@ -10,6 +10,7 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import RecipePlanner from "./components/RecipePlanner";
+import { THEME_STYLES } from "./constants";
 
 function App()
 {
@@ -30,7 +31,12 @@ function App()
     );
   }
 
-  return <div className="container-fluid py-4">{content}</div>;
+  return (
+    <div className="container-fluid py-4">
+      <style>{THEME_STYLES}</style>
+      {content}
+    </div>
+  );
 }
 
 export default App;

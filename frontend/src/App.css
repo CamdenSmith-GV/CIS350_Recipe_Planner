@@ -1,14 +1,1 @@
-.btn.custom-orange-btn
-{
-  background-color: #FF7218;
-  border-color: #FF7218;
-  border-radius: 30px;
-  color: white;
-}
-
-.btn.custom-orange-btn:hover
-{
-  background-color: #FF3228;
-  border-color: #FF7228;
-  color: white;
-}
+/* Button and theme styles now live in ./constants.js (THEME_STYLES). */
