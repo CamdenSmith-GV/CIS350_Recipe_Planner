@@ -17,6 +17,8 @@ origins = [
     # Add more origins here
 ]
 
+# Hello G
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
