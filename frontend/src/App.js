@@ -6,15 +6,25 @@
  * @brief Top-level app shell.
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
 import RecipePlanner from "./components/RecipePlanner";
 import { THEME_STYLES } from "./constants";
 
 function App()
 {
   const [showPlanner, setShowPlanner] = useState(false);
+  const [savedRecipes, setSavedRecipes] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/getRecipes")
+      .then((response) => response.json())
+      .then((data) => setSavedRecipes(data))
+      .catch((error) => console.error("Failed to load recipes:", error));
+  }, []);
+
+  console.log("Here!!!!");
+  console.log(savedRecipes);
 
   let content;
   if (showPlanner)

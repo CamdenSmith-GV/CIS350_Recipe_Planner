@@ -56,11 +56,11 @@ def create_recipe(recipe: Recipe):
 def get_recipes():
 
     recipes = list(
-        recipe_collection.find(
-            {},
-            {"_id": 0}
-        )
+        recipe_collection.find({})
     )
+
+    for recipe in recipes:
+        recipe["id"] = str(recipe.pop("_id"))
 
     return recipes
 
