@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import RecipePlanner from "./components/RecipePlanner";
 import { THEME_STYLES } from "./constants";
 import api from './api';
+import RecipeList from "./components/RecipeList";
 
 function App()
 {
@@ -38,11 +39,21 @@ function App()
   }
   else
   {
-    content = 
+    content =
     (
-      <button className="btn custom-orange-btn" onClick={() => setShowPlanner(true)}>
-        Open Recipe Planner
-      </button>
+      <>
+       
+        <div className="row mt-4">
+          <div className="col-md-4">
+            <RecipeList />;
+
+          </div>
+        </div>
+
+         <button className="btn custom-orange-btn" onClick={() => setShowPlanner(true)}>
+          Open Recipe Planner
+        </button>
+      </>
     );
   }
 
