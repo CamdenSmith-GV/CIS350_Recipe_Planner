@@ -10,17 +10,22 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RecipePlanner from "./components/RecipePlanner";
 import { THEME_STYLES } from "./constants";
+import api from './api';
 
 function App()
 {
+  const fetchRecipes = async () => 
+  {
+    const response = await api.get("/getRecipes");
+    setSavedRecipes(response.data);
+  };
+
   const [showPlanner, setShowPlanner] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:3001/getRecipes")
-      .then((response) => response.json())
-      .then((data) => setSavedRecipes(data))
-      .catch((error) => console.error("Failed to load recipes:", error));
+  useEffect(() => 
+  {
+    fetchRecipes();
   }, []);
 
   console.log("Here!!!!");
