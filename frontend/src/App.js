@@ -30,12 +30,11 @@ function App()
   }, []);
 
   console.log("Here!!!!");
-  console.log(savedRecipes);
 
   let content;
   if (showPlanner)
   {
-    content = <RecipePlanner />;
+    content = <RecipePlanner savedRecipes={savedRecipes} />;
   }
   else
   {
@@ -45,7 +44,7 @@ function App()
        
         <div className="row mt-4">
           <div className="col-md-4">
-            <RecipeList />;
+            <RecipeList savedRecipes={savedRecipes} />
 
           </div>
         </div>
