@@ -45,7 +45,7 @@ app.add_middleware(
 
 @app.post("/createRecipe")
 def create_recipe(recipe: Recipe):
-
+    print(Recipe)
     recipe_collection.insert_one(
         recipe.model_dump()
     )

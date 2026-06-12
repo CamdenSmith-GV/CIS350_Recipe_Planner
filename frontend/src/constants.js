@@ -122,11 +122,3 @@ export const createEmptyIngredient = () =>
   unit: "",
   amount: "", 
 });
-
-export const createRecipe = (recipeName, ingredientList, instructions, hours, minutes) =>
-({
-  name: recipeName,
-  ingredients: ingredientList,
-  instructions: instructions,
-  cookTimeMinutes: Number(hours) * 60 + Number(minutes),
-});

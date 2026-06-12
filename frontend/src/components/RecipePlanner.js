@@ -8,12 +8,13 @@
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
+import api from '../api';
+
 import 
 {
   VOLUME_UNITS,
   MASS_UNITS,
   createEmptyIngredient,
-  createRecipe
 } from "../constants";
 
 function RecipePlanner()
@@ -74,7 +75,25 @@ function RecipePlanner()
       return;
     }
 
-    const recipe = createRecipe(recipName, ingredientList, instructions, hours, minutes);
+  
+  const recipe = 
+    {
+      name: recipName,
+      cook_time: Number(hours) * 60 + Number(minutes),
+      ingredients: ingredientList.map((ingrediant) => ({
+        name: ingrediant.name,
+        measurement_type: ingrediant.measurementType,
+        amount: Number(ingrediant.amount),
+        unit: ingrediant.unit || "none"
+      }))
+    };
+
+    const sendRecipe = async (recipe) =>
+    {
+      await api.post('/createRecipe', recipe);
+    }
+
+    sendRecipe(recipe);
 
     // recipe will be sent to the backend later
     setSavedRecipes([...savedRecipes, recipe]);
