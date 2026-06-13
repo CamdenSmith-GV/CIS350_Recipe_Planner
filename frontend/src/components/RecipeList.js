@@ -8,14 +8,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 
-function RecipeList({ savedRecipes = [] }) {
+function RecipeList({ savedRecipes = [], onSelectRecipe }) {
   const [selectedId, setSelectedId] = useState(null);
 
-  const selectRecipe = (e, id) => 
+  const selectRecipe = (id) =>
   {
-    e.preventDefault();
     setSelectedId(id);
-    console.log(id);
+    onSelectRecipe(id);
   };
 
   return (
@@ -24,18 +23,18 @@ function RecipeList({ savedRecipes = [] }) {
 
       <div className="list-group">
         {savedRecipes.map((recipe) => (
-          <a
+          <button
             key={recipe.id}
-            href="#"
+            type="button"
             className={`list-group-item list-group-item-action ${selectedId === recipe.id ? "active" : ""}`}
-            onClick={(e) => selectRecipe(e, recipe.id)}
+            onClick={() => selectRecipe(recipe.id)}
           >
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{recipe.name}</h5>
               <small>{recipe.cookTime} min</small>
             </div>
-            <p className="mb-1">Summary TBD</p>
-          </a>
+            <p className="mb-1">{recipe.summary}</p>
+          </button>
         ))}
       </div>
     </div>

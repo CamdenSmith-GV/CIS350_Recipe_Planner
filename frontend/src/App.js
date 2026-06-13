@@ -12,6 +12,7 @@ import RecipePlanner from "./components/RecipePlanner";
 import { THEME_STYLES } from "./constants";
 import api from './api';
 import RecipeList from "./components/RecipeList";
+import RecipeDisplay from "./components/RecipeDisplay";
 
 function App()
 {
@@ -23,6 +24,13 @@ function App()
 
   const [showPlanner, setShowPlanner] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+
+  const handleSelectRecipe = (id) =>
+  {
+    const recipe = savedRecipes.find((r) => r.id === id);
+    setSelectedRecipe(recipe);
+  };
 
   useEffect(() => 
   {
@@ -44,8 +52,11 @@ function App()
        
         <div className="row mt-4">
           <div className="col-md-4">
-            <RecipeList savedRecipes={savedRecipes} />
+            <RecipeList savedRecipes={savedRecipes} onSelectRecipe={handleSelectRecipe} />
 
+          </div>
+          <div className="col-md-8">
+            <RecipeDisplay selectedRecipe={selectedRecipe} />
           </div>
         </div>
 
