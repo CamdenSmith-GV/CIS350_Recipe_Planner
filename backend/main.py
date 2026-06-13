@@ -17,6 +17,8 @@ class Ingredient(BaseModel):
 # allows us to call the recipe and use it in the frontend, it also allows us to call the ingredients from the recipe and use them in the frontend
 class Recipe(BaseModel):
     name: str
+    summary: str
+    instructions: str
     cook_time: int
     ingredients: List[Ingredient]
 

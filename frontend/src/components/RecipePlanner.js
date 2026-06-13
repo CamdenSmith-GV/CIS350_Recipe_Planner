@@ -22,6 +22,7 @@ function RecipePlanner()
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [ingredientList, setIngredientList] = useState([]);
   const [recipName, setName] = useState("");
+  const [recipSummary, setSummary] = useState("");
   const [instructions, setInstructions] = useState("");
   const [hours, setHours] = useState("0");
   const [minutes, setMinutes] = useState("0");
@@ -79,6 +80,8 @@ function RecipePlanner()
   const recipe = 
     {
       name: recipName,
+      summary: recipSummary,
+      instructions: instructions,
       cook_time: Number(hours) * 60 + Number(minutes),
       ingredients: ingredientList.map((ingrediant) => ({
         name: ingrediant.name,
@@ -99,6 +102,8 @@ function RecipePlanner()
     setSavedRecipes([...savedRecipes, recipe]);
 
     // Reset the form for the next recipe.
+    setName("");
+    setSummary("")
     setIngredientList([]);
     setInstructions("");
     setHours("0");
@@ -107,8 +112,18 @@ function RecipePlanner()
   };
 
   return (
-    <div className="container-fluid mt-4 p-4 recipe-page">
+    <div className="container-fluid mt-4 p-4 recipe-page position-relative">
       <h1 className="mb-3 recipe-title">Recipe Planner</h1>
+
+    <div className="position-absolute top-0 end-0 mt-4" style={{ width: "37%", marginRight: "8rem" }}>
+        <div className="card recipe-card p-4 shadow-sm">
+          <h2>Current Ingredients</h2>
+
+          {ingredientList.map((ingredient, index) => (
+            <p key={index} className="recipe-ingredient-item">{formatIngredient(ingredient)}</p>
+          ))}
+        </div>
+      </div>
 
       <div className="row g-4">
         <div className="col-auto">
@@ -124,7 +139,22 @@ function RecipePlanner()
           />
         </div>
       </div>
+
       <div className="row g-4">
+        <div className="col-auto">
+          <h4 className="mb-3 recipe-heading">Summary:</h4>
+        </div>
+        <div className="col-md-5">
+          <input
+            className="form-control recipe-input"
+            type="text"
+            placeholder="Summary..."
+            value={recipSummary}
+            onChange={(event) => setSummary(event.target.value)}
+            />
+        </div>
+      </div>
+      <div className="row g-4 align-items-start">
         <div className="col-md-6">
           {/* Ingrediant enter col*/}
           <div className="row g-2 align-items-center mb-2">
@@ -174,7 +204,7 @@ function RecipePlanner()
               </div>
             )}
 
-            {/* Amount box (shown once a measurement type is chosen) */}
+            {/* Amount box */}
             {currentIngredient.measurementType !== "" && (
               <div className="col-auto">
                 <input
@@ -194,16 +224,6 @@ function RecipePlanner()
           >
             Add Ingredient
           </button>
-        </div>
-
-        <div className="col-md-6">
-          <div className="card recipe-card p-4 shadow-sm">
-            <h2>Current Ingredients</h2>
-
-            {ingredientList.map((ingredient, index) => (
-              <p key={index} className="recipe-ingredient-item">{formatIngredient(ingredient)}</p>
-            ))}
-          </div>
         </div>
       </div>
 
