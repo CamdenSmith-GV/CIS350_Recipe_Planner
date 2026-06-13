@@ -113,6 +113,45 @@ export const THEME_STYLES = `
   border-color: ${THEME.brown};
   color: ${THEME.white};
 }
+
+.recipe-list-item.list-group-item
+{
+  background-color: ${THEME.white};
+  border: 1px solid ${THEME.taupe};
+  color: ${THEME.brown};
+  border-radius: 12px;
+  margin-bottom: 0.6rem;
+}
+
+.recipe-list-item.list-group-item:hover
+{
+  background-color: ${THEME.cream};
+  border-color: ${THEME.green};
+}
+
+.recipe-list-item.list-group-item.active
+{
+  background-color: ${THEME.green};
+  border-color: ${THEME.green};
+  color: ${THEME.white};
+}
+
+.recipe-list-item.list-group-item.active small,
+.recipe-list-item.list-group-item.active p
+{
+  color: ${THEME.cream};
+}
+
+.recipe-list-item .recipe-list-time
+{
+  color: ${THEME.orange};
+  font-weight: bold;
+}
+
+.recipe-list-item .recipe-list-summary
+{
+  color: ${THEME.taupe};
+}
 `;
 
 export const createEmptyIngredient = () =>

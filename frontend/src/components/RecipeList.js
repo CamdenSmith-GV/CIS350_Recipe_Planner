@@ -26,14 +26,14 @@ function RecipeList({ savedRecipes = [], onSelectRecipe }) {
           <button
             key={recipe.id}
             type="button"
-            className={`list-group-item list-group-item-action ${selectedId === recipe.id ? "active" : ""}`}
+            className={`recipe-list-item list-group-item list-group-item-action ${selectedId === recipe.id ? "active" : ""}`}
             onClick={() => selectRecipe(recipe.id)}
           >
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{recipe.name}</h5>
-              <small>{recipe.cookTime} min</small>
+              <small className="recipe-list-time">{recipe.cookTime} min</small>
             </div>
-            <p className="mb-1">{recipe.summary}</p>
+            <p className="mb-1 recipe-list-summary">{recipe.summary}</p>
           </button>
         ))}
       </div>
