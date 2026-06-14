@@ -7,7 +7,7 @@
  */
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function RecipeDisplay({ selectedRecipe }) {
+function RecipeDisplay({ selectedRecipe, onAddToGroceryList }) {
     if (!selectedRecipe) 
     {
         return (
@@ -25,6 +25,11 @@ function RecipeDisplay({ selectedRecipe }) {
             return `${ingredient.amount} ${ingredient.name}`;
         }
         return `${ingredient.amount} ${ingredient.unit} ${ingredient.name}`;
+    };
+
+    const addToList = () =>
+    {
+        onAddToGroceryList(selectedRecipe);
     };
 
     return (
@@ -45,6 +50,13 @@ function RecipeDisplay({ selectedRecipe }) {
                 <h4 className="recipe-heading mt-3">Instructions</h4>
                 <p className="recipe-instructions">{selectedRecipe.instructions}</p>
             </div>
+
+            <button 
+                className="btn custom-green-btn mt-2"
+                onClick={addToList}
+            >
+                Add To Shopping List
+            </button>
         </div>
     );
 }

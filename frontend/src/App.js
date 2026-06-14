@@ -24,12 +24,25 @@ function App()
 
   const [showPlanner, setShowPlanner] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [groceryList, setGroceryList] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const handleSelectRecipe = (id) =>
   {
     const recipe = savedRecipes.find((r) => r.id === id);
     setSelectedRecipe(recipe);
+  };
+
+  const handleAddToGroceryList = (recipe) =>
+  {
+    setGroceryList((prev) =>
+    {
+      if (prev.some((r) => r.id === recipe.id))
+      {
+        return prev;
+      }
+      return [...prev, recipe];
+    });
   };
 
   useEffect(() => 
@@ -56,7 +69,7 @@ function App()
 
           </div>
           <div className="col-md-8">
-            <RecipeDisplay selectedRecipe={selectedRecipe} />
+            <RecipeDisplay selectedRecipe={selectedRecipe} onAddToGroceryList={handleAddToGroceryList} />
           </div>
         </div>
 
