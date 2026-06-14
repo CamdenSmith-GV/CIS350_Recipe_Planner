@@ -61,6 +61,15 @@ export const THEME_STYLES = `
   margin-bottom: 0.4rem;
 }
 
+.recipe-instructions
+{
+  color: ${THEME.brown};
+  background-color: ${THEME.cream};
+  border-left: 5px solid ${THEME.orange};
+  border-radius: 10px;
+  padding: 1rem;
+}
+
 .recipe-input
 {
   background-color: ${THEME.white};
@@ -142,7 +151,8 @@ export const THEME_STYLES = `
   color: ${THEME.cream};
 }
 
-.recipe-list-item .recipe-list-time
+.recipe-list-item .recipe-list-time,
+.recipe-card .recipe-list-time
 {
   color: ${THEME.orange};
   font-weight: bold;
