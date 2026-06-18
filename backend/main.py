@@ -74,9 +74,113 @@ def get_grocery_list():
         )
     )
 
-    for recipe in recipes:
-        for ingredient in recipe["ingredients"]:
-            ingredient["amount"] = ingredient["amount"] * 2
+    ingredient_array = []
+
+    ingredient_quantity = 0
+    ingredient_volume = 0
+    ingredient_mass = 0
+
+    largest_volume = "mL"
+    largest_mass = "g"
+
+    with open("grocery_list.txt", "w") as f:
+        for recipe in recipes:
+            for ingredient in recipe["ingredients"]:
+                if ingredient["name"] not in ingredient_array:
+                    ingredient_array.append(ingredient["name"])
+                    f.write(f"{ingredient['name']}: ")
+                    for recipe in recipes:
+                        for ingredient in recipe["ingredients"]:
+                            if ingredient["name"] == ingredient_array[-1]:
+                                
+                                if ingredient["measurement_type"] == "quantity":
+                                    ingredient_quantity += ingredient["amount"]
+                                
+                                # Adding Volumes Together and Converting to the Largest Unit
+                                elif ingredient["measurement_type"] == "volume":
+                                    if ingredient["unit"] == "gallon":
+                                        ingredient_volume += (ingredient["amount"] * 3786) # convert gallon to ml (rounded from 3785.41)
+                                        largest_volume = "gallon"
+                                    elif ingredient["unit"] == "L":
+                                        ingredient_volume += (ingredient["amount"] * 1000) # convert l to ml
+                                        if largest_volume != "gallon":
+                                            largest_volume = "l"
+                                    elif ingredient["unit"] == "quart":
+                                        ingredient_volume += (ingredient["amount"] * 946) # convert quart to ml (rounded from 946.353)
+                                        if largest_volume != "gallon" and largest_volume != "L":
+                                            largest_volume = "quart"
+                                    elif ingredient["unit"] == "pint":
+                                        ingredient_volume += (ingredient["amount"] * 473) # convert pint to ml (rounded from 473.176)
+                                        if largest_volume != "gallon" and largest_volume != "L" and largest_volume != "quart":
+                                            largest_volume = "pint"
+                                    elif ingredient["unit"] == "cup":
+                                        ingredient_volume += (ingredient["amount"] * 237) # convert cup to ml (rounded from 236.588)
+                                        if largest_volume != "gallon" and largest_volume != "L" and largest_volume != "quart" and largest_volume != "pint":
+                                            largest_volume = "cup"
+                                    elif ingredient["unit"] == "fl oz":
+                                        ingredient_volume += (ingredient["amount"] * 30) # convert fl oz to ml (rounded from 29.5735)
+                                        if largest_volume != "gallon" and largest_volume != "L" and largest_volume != "quart" and largest_volume != "pint" and largest_volume != "cup":
+                                            largest_volume = "fl oz"
+                                    elif ingredient["unit"] == "tbsp":
+                                        ingredient_volume += (ingredient["amount"] * 15) # convert tbsp to ml (rounded from 14.7868)
+                                        if largest_volume != "gallon" and largest_volume != "L" and largest_volume != "quart" and largest_volume != "pint" and largest_volume != "cup" and largest_volume != "fl oz":
+                                            largest_volume = "tbsp"
+                                    elif ingredient["unit"] == "tsp":
+                                        ingredient_volume += (ingredient["amount"] * 5) # convert tsp to ml (rounded from 4.92892)
+                                        if largest_volume != "gallon" and largest_volume != "L" and largest_volume != "quart" and largest_volume != "pint" and largest_volume != "cup" and largest_volume != "fl oz" and largest_volume != "tbsp":
+                                            largest_volume = "tsp"
+                                    else:
+                                        ingredient_volume += ingredient["amount"]
+                                
+                                # Adding Masses Together and Converting to the Largest Unit       
+                                elif ingredient["measurement_type"] == "mass":
+                                    if ingredient["unit"] == "kg":
+                                        ingredient_mass += (ingredient["amount"] * 1000) # convert kg to g
+                                        largest_mass = "kg"
+                                    elif ingredient["unit"] == "lbs":
+                                        ingredient_mass += (ingredient["amount"] * 454) # convert lbs to g (rounded from 453.592)
+                                        if largest_mass != "kg":
+                                            largest_mass = "lbs"
+                                    elif ingredient["unit"] == "oz":
+                                        ingredient_mass += (ingredient["amount"] * 29) # convert oz to g (rounded from 28.3495)
+                                        if largest_mass != "kg" and largest_mass != "lbs":
+                                            largest_mass = "oz"
+                                    else:
+                                        ingredient_mass += ingredient["amount"]
+
+                    if ingredient_quantity > 0:
+                        f.write(f"{ingredient_quantity} count + ")
+                    
+                    if ingredient_volume > 0:
+                        if largest_volume == "L":
+                            f.write(f"{ingredient_volume / 1000} L + ")
+                        elif largest_volume == "cup":
+                            f.write(f"{ingredient_volume / 237} cups + ")
+                        elif largest_volume == "tbsp":
+                            f.write(f"{ingredient_volume / 15} tbsp + ")
+                        elif largest_volume == "tsp":
+                            f.write(f"{ingredient_volume / 5} tsp + ")
+                        elif largest_volume == "ml":
+                            f.write(f"{ingredient_volume} ml")
+                    
+                    if ingredient_mass > 0:
+                        if largest_mass == "kg":
+                            f.write(f"{ingredient_mass / 1000} kg")
+                        elif largest_mass == "lbs":
+                            f.write(f"{ingredient_mass / 454} lbs")
+                        elif largest_mass == "oz":
+                            f.write(f"{ingredient_mass / 29} oz")
+                        elif largest_mass == "g":
+                            f.write(f"{ingredient_mass} g")
+
+                    f.write("\n\n")
+                    
+                    ingredient_quantity = 0
+                    ingredient_volume = 0
+                    ingredient_mass = 0
+
+                    largest_volume = "mL"
+                    largest_mass = "g"
 
     return recipes
 
