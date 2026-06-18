@@ -2,83 +2,110 @@
  * @file ./frontend/src/App.js
  * @author Camden Smith
  * @course CIS350
- * @date 6/4/2026
- * @brief React client for displaying and creating ingredients.
+ * @date 6/5/2026
+ * @brief Top-level app shell.
  */
 
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
-import Axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import RecipePlanner from "./components/RecipePlanner";
+import { THEME, THEME_STYLES } from "./constants";
+import api from './api';
+import RecipeList from "./components/RecipeList";
+import RecipeDisplay from "./components/RecipeDisplay";
+import SelectedRecipes from "./components/SelectedRecipes";
 
-function App() {
-  const [ingredientName, setIngredientName] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [ingredients, setIngredients] = useState([]);
+function App()
+{
+  const fetchRecipes = async () => 
+  {
+    const response = await api.get("/getRecipes");
+    setSavedRecipes(response.data);
+  };
 
-  const addIngredient = () => 
+  const [showPlanner, setShowPlanner] = useState(false);
+  const [savedRecipes, setSavedRecipes] = useState([]);
+  const [groceryList, setGroceryList] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+
+  const handleSelectRecipe = (id) =>
+  {
+    const recipe = savedRecipes.find((r) => r.id === id);
+    setSelectedRecipe(recipe);
+  };
+
+  const handleAddToGroceryList = (recipe) =>
+  {
+    setGroceryList((prev) =>
     {
-      const newIngredient = 
+      if (prev.some((r) => r.id === recipe.id))
       {
-        name: ingredientName,
-        quantity: quantity,
-      };
+        return prev;
+      }
+      return [...prev, recipe];
+    });
+  };
 
-      setIngredients([...ingredients, newIngredient,]);
+  const handleRemoveFromGroceryList = (recipe) =>
+  {
+    setGroceryList((prev) =>
+    {
+      return prev.filter((r) => r.id !== recipe.id);
+    });
+  };
 
-      setIngredientName("");
-      setQuantity("");
-   };
+  useEffect(() =>
+  {
+    fetchRecipes();
+  }, []);
   
-
- return (
-    <div className="container mt-4">
-      <div className="card p-4 mb-4 shadow-sm">
-        <h1 className="mb-3">Recipe Planner</h1>
-
-        <input
-          className="form-control mb-2"
-          type="text"
-          placeholder="Ingredient name..."
-          value={ingredientName}
-          onChange={(event) => 
-            {
-              setIngredientName(event.target.value);
-            }}
-        />
-
-        <input
-          className="form-control mb-3"
-          type="text"
-          placeholder="Quantity..."
-          value={quantity}
-          onChange={(event) => 
-            {
-              setQuantity(event.target.value);
-            }}
-        />
-
-        <button className="btn custom-orange-btn" onClick={addIngredient}>
-          Add Ingredient
+  let content;
+  if (showPlanner)
+  {
+    content =
+    (
+      <>
+        <button className="btn custom-red-btn mb-3" onClick={() => setShowPlanner(false)}>
+          Exit Recipe Planner
         </button>
-      </div>
+        <RecipePlanner savedRecipes={savedRecipes} />
+      </>
+    );
+  }
+  else
+  {
+    content =
+    (
+      <>
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h1 className="recipe-title mb-0">Grocery Studio</h1>
+          <button className="btn custom-orange-btn" onClick={() => setShowPlanner(true)}>
+            Open Recipe Planner
+          </button>
+        </div>
 
-      <div className="card p-4 shadow-sm">
-        <h2>Current Ingredients</h2>
+        <div className="row mt-4">
+          <div className="col-md-3">
+            <RecipeList savedRecipes={savedRecipes} onSelectRecipe={handleSelectRecipe} />
 
-        {ingredients.map((ingredient, index) => 
-          {
-            return (
-              <p key={index}>
-                {ingredient.quantity} {ingredient.name}
-              </p>
-            );
-          })}
-      </div>
+          </div>
+          <div className="col-md-7">
+            <RecipeDisplay selectedRecipe={selectedRecipe} onAddToGroceryList={handleAddToGroceryList} />
+          </div>
+          <div className="col-md-2">
+            <SelectedRecipes groceryList={groceryList} onRemoveFromGroceryList={handleRemoveFromGroceryList} />
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <div className="container-fluid py-4" style={{ backgroundColor: THEME.cream, minHeight: "100vh" }}>
+      <style>{THEME_STYLES}</style>
+      {content}
     </div>
   );
-
 }
-
 
 export default App;

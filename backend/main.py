@@ -6,6 +6,9 @@ from pydantic import BaseModel
 from pymongo import MongoClient
 from typing import List, Dict, Optional
 from pydantic import BaseModel
+from pymongo import MongoClient
+from typing import List, Dict, Optional
+from pydantic import BaseModel
 
 #Classes
 # allows us to easily call the ingreidents from the recipe and use them in the frontend
@@ -18,6 +21,8 @@ class Ingredient(BaseModel):
 # allows us to call the recipe and use it in the frontend, it also allows us to call the ingredients from the recipe and use them in the frontend
 class Recipe(BaseModel):
     name: str
+    summary: str
+    instructions: str
     cook_time: int
     ingredients: List[Ingredient]
 
@@ -46,7 +51,7 @@ app.add_middleware(
 
 @app.post("/createRecipe")
 def create_recipe(recipe: Recipe):
-
+    print(Recipe)
     recipe_collection.insert_one(
         recipe.model_dump()
     )
@@ -57,13 +62,14 @@ def create_recipe(recipe: Recipe):
 def get_recipes():
 
     recipes = list(
-        recipe_collection.find(
-            {},
-            {"_id": 0}
-        )
+        recipe_collection.find({})
     )
 
+    for recipe in recipes:
+        recipe["id"] = str(recipe.pop("_id"))
+
     return recipes
+
 
 @app.get("/getGroceryList")
 def get_grocery_list():
