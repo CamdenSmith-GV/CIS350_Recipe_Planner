@@ -26,6 +26,9 @@ class Recipe(BaseModel):
     cook_time: int
     ingredients: List[Ingredient]
 
+class ListRequest(BaseModel):
+    recipe_ids: List[str]
+
 
 app = FastAPI(debug=True)
 
@@ -72,7 +75,7 @@ def get_recipes():
 
 
 @app.get("/getGroceryList")
-def get_grocery_list():
+def get_grocery_list(request: ListRequest):
 
     recipes = list(
         recipe_collection.find(
@@ -80,6 +83,12 @@ def get_grocery_list():
             {"_id": 0}
         )
     )
+
+    for ID in request.recipe_ids:
+        for recipe in recipes:
+            if recipe["id"] == ID:
+                recipe["id"] = str(recipe.pop("_id"))
+                break
 
     ingredient_array = []
 
