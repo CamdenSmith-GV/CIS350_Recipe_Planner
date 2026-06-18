@@ -11,7 +11,7 @@ function SelectedRecipes({ groceryList = [], onRemoveFromGroceryList }) {
   if (groceryList.length === 0)
   {
     return (
-      <div className="container-fluid mt-4 p-4 recipe-page">
+      <div className="container-fluid mt-4 p-4 selected-panel">
         <h5 className="mb-3 recipe-title">Selected</h5>
         <p className="recipe-empty">No recipes added.</p>
       </div>
@@ -19,14 +19,14 @@ function SelectedRecipes({ groceryList = [], onRemoveFromGroceryList }) {
   }
 
   return (
-    <div className="container-fluid mt-4 p-4 recipe-page">
+    <div className="container-fluid mt-4 p-4 selected-panel">
       <h5 className="mb-3 recipe-title">Selected</h5>
 
       <div className="list-group">
         {groceryList.map((recipe) => (
           <div
             key={recipe.id}
-            className="recipe-list-item list-group-item d-flex justify-content-between align-items-center"
+            className="selected-item d-flex justify-content-between align-items-center"
           >
             <span>{recipe.name}</span>
             <button

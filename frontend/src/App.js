@@ -9,7 +9,7 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RecipePlanner from "./components/RecipePlanner";
-import { THEME_STYLES } from "./constants";
+import { THEME, THEME_STYLES } from "./constants";
 import api from './api';
 import RecipeList from "./components/RecipeList";
 import RecipeDisplay from "./components/RecipeDisplay";
@@ -58,9 +58,7 @@ function App()
   {
     fetchRecipes();
   }, []);
-
-  console.log("Here!!!!");
-
+  
   let content;
   if (showPlanner)
   {
@@ -93,7 +91,7 @@ function App()
   }
 
   return (
-    <div className="container-fluid py-4">
+    <div className="container-fluid py-4" style={{ backgroundColor: THEME.cream, minHeight: "100vh" }}>
       <style>{THEME_STYLES}</style>
       {content}
     </div>

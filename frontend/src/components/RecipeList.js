@@ -18,7 +18,7 @@ function RecipeList({ savedRecipes = [], onSelectRecipe }) {
   };
 
   return (
-    <div className="container-fluid mt-4 p-4 recipe-page">
+    <div className="container-fluid mt-4 p-4">
       <h1 className="mb-3 recipe-title">Recipe Planner</h1>
 
       <div className="list-group">

@@ -28,6 +28,30 @@ export const THEME_STYLES = `
   min-height: 100vh;
 }
 
+.selected-panel
+{
+  background-color: ${THEME.white};
+  border: 1px solid ${THEME.taupe};
+  border-radius: 16px;
+}
+
+.selected-item
+{
+  background-color: ${THEME.white};
+  border: 1px solid ${THEME.taupe};
+  border-left: 4px solid ${THEME.orange};
+  border-radius: 10px;
+  color: ${THEME.brown};
+  padding: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.selected-item:hover
+{
+  border-color: ${THEME.taupe};
+  border-left-color: ${THEME.green};
+}
+
 .recipe-title
 {
   color: ${THEME.brown};

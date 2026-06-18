@@ -11,7 +11,7 @@ function RecipeDisplay({ selectedRecipe, onAddToGroceryList }) {
     if (!selectedRecipe) 
     {
         return (
-            <div className="container-fluid mt-4 p-4 recipe-page">
+            <div className="container-fluid mt-4 p-4">
                 <h1 className="mb-3 recipe-title">Recipe Display</h1>
                 <p className="recipe-empty">Select a recipe to see its details.</p>
             </div>
