@@ -147,6 +147,22 @@ export const THEME_STYLES = `
   color: ${THEME.white};
 }
 
+.btn.custom-red-btn
+{
+  background-color: #C0392B;
+  border-color: #C0392B;
+  border-radius: 30px;
+  color: ${THEME.white};
+  font-weight: bold;
+}
+
+.btn.custom-red-btn:hover
+{
+  background-color: ${THEME.brown};
+  border-color: ${THEME.brown};
+  color: ${THEME.white};
+}
+
 .recipe-list-item.list-group-item
 {
   background-color: ${THEME.white};

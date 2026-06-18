@@ -6,8 +6,21 @@
  * @brief Small column listing the recipes added to the shopping list.
  */
 import "bootstrap/dist/css/bootstrap.min.css";
+import api from "../api";
 
 function SelectedRecipes({ groceryList = [], onRemoveFromGroceryList }) {
+
+  const handleDownload = async () => 
+  {
+    const ids = groceryList.map((recipe) => recipe.id);
+    const response = await api.post("/groceryList", { recipe_ids: ids });
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(new Blob([response.data]));
+    link.download = "grocery-list.txt";
+    link.click();
+  };
+
   if (groceryList.length === 0)
   {
     return (
@@ -38,6 +51,14 @@ function SelectedRecipes({ groceryList = [], onRemoveFromGroceryList }) {
           </div>
         ))}
       </div>
+
+      <button
+        type="button"
+        className="btn custom-green-btn w-100 mt-3"
+        onClick={handleDownload}
+      >
+        Download Grocery List
+      </button>
     </div>
   );
 }

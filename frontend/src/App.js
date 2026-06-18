@@ -62,14 +62,28 @@ function App()
   let content;
   if (showPlanner)
   {
-    content = <RecipePlanner savedRecipes={savedRecipes} />;
+    content =
+    (
+      <>
+        <button className="btn custom-red-btn mb-3" onClick={() => setShowPlanner(false)}>
+          Exit Recipe Planner
+        </button>
+        <RecipePlanner savedRecipes={savedRecipes} />
+      </>
+    );
   }
   else
   {
     content =
     (
       <>
-       
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h1 className="recipe-title mb-0">Recipe Planner</h1>
+          <button className="btn custom-orange-btn" onClick={() => setShowPlanner(true)}>
+            Open Recipe Planner
+          </button>
+        </div>
+
         <div className="row mt-4">
           <div className="col-md-3">
             <RecipeList savedRecipes={savedRecipes} onSelectRecipe={handleSelectRecipe} />
@@ -82,10 +96,6 @@ function App()
             <SelectedRecipes groceryList={groceryList} onRemoveFromGroceryList={handleRemoveFromGroceryList} />
           </div>
         </div>
-
-         <button className="btn custom-orange-btn" onClick={() => setShowPlanner(true)}>
-          Open Recipe Planner
-        </button>
       </>
     );
   }
