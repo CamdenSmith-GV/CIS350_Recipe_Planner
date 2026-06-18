@@ -189,6 +189,9 @@ def get_grocery_list():
                     largest_volume = "mL"
                     largest_mass = "g"
 
+    with open("grocery_list.txt", "r") as f:
+        output = f.read()
+
     return Response(
         content=output,
         media_type="text/plain",
