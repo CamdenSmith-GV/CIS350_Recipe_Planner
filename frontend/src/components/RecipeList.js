@@ -19,7 +19,7 @@ function RecipeList({ savedRecipes = [], onSelectRecipe }) {
 
   return (
     <div className="container-fluid mt-4 p-4">
-      <h1 className="mb-3 recipe-title">Recipe Planner</h1>
+      <h1 className="mb-3 recipe-title">Select Recipes:</h1>
 
       <div className="list-group">
         {savedRecipes.map((recipe) => (

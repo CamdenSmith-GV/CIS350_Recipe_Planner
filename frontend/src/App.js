@@ -78,7 +78,7 @@ function App()
     (
       <>
         <div className="d-flex justify-content-between align-items-center mb-4">
-          <h1 className="recipe-title mb-0">Recipe Planner</h1>
+          <h1 className="recipe-title mb-0">Grocery Studio</h1>
           <button className="btn custom-orange-btn" onClick={() => setShowPlanner(true)}>
             Open Recipe Planner
           </button>
