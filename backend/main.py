@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from pydantic import BaseModel
 from pymongo import MongoClient
 from typing import List, Dict, Optional
@@ -182,13 +183,11 @@ def get_grocery_list():
                     largest_volume = "mL"
                     largest_mass = "g"
 
-    return recipes
-
-            {"_id": 0}
-        )
+    return Response(
+        content=output,
+        media_type="text/plain",
+        headers={"Content-Disposition": "attachment; filename=grocery_list.txt"},
     )
-
-    return recipes
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=3001)
