@@ -1,3 +1,5 @@
+from urllib import request
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -78,17 +80,13 @@ def get_recipes():
 def get_grocery_list(request: ListRequest):
 
     recipes = list(
-        recipe_collection.find(
-            {},
-            {"_id": 0}
+            recipe_collection.find({})
         )
-    )
 
-    for ID in request.recipe_ids:
-        for recipe in recipes:
-            if recipe.get("id") == ID:
-                recipe["_id"] = str(recipe.pop("_id"))
-                break
+    for recipe in recipes:
+        recipe["id"] = str(recipe.pop("_id"))
+
+    recipes = [recipe for recipe in recipes if recipe["id"] in request.recipe_ids]
 
     ingredient_array = []
 
