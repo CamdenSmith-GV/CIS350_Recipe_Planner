@@ -28,6 +28,30 @@ export const THEME_STYLES = `
   min-height: 100vh;
 }
 
+.selected-panel
+{
+  background-color: ${THEME.white};
+  border: 1px solid ${THEME.taupe};
+  border-radius: 16px;
+}
+
+.selected-item
+{
+  background-color: ${THEME.white};
+  border: 1px solid ${THEME.taupe};
+  border-left: 4px solid ${THEME.orange};
+  border-radius: 10px;
+  color: ${THEME.brown};
+  padding: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.selected-item:hover
+{
+  border-color: ${THEME.taupe};
+  border-left-color: ${THEME.green};
+}
+
 .recipe-title
 {
   color: ${THEME.brown};
@@ -59,6 +83,15 @@ export const THEME_STYLES = `
   border-bottom: 1px solid ${THEME.taupe};
   padding-bottom: 0.4rem;
   margin-bottom: 0.4rem;
+}
+
+.recipe-instructions
+{
+  color: ${THEME.brown};
+  background-color: ${THEME.cream};
+  border-left: 5px solid ${THEME.orange};
+  border-radius: 10px;
+  padding: 1rem;
 }
 
 .recipe-input
@@ -112,6 +145,62 @@ export const THEME_STYLES = `
   background-color: ${THEME.brown};
   border-color: ${THEME.brown};
   color: ${THEME.white};
+}
+
+.btn.custom-red-btn
+{
+  background-color: #C0392B;
+  border-color: #C0392B;
+  border-radius: 30px;
+  color: ${THEME.white};
+  font-weight: bold;
+}
+
+.btn.custom-red-btn:hover
+{
+  background-color: ${THEME.brown};
+  border-color: ${THEME.brown};
+  color: ${THEME.white};
+}
+
+.recipe-list-item.list-group-item
+{
+  background-color: ${THEME.white};
+  border: 1px solid ${THEME.taupe};
+  color: ${THEME.brown};
+  border-radius: 12px;
+  margin-bottom: 0.6rem;
+}
+
+.recipe-list-item.list-group-item:hover
+{
+  background-color: ${THEME.cream};
+  border-color: ${THEME.green};
+}
+
+.recipe-list-item.list-group-item.active
+{
+  background-color: ${THEME.green};
+  border-color: ${THEME.green};
+  color: ${THEME.white};
+}
+
+.recipe-list-item.list-group-item.active small,
+.recipe-list-item.list-group-item.active p
+{
+  color: ${THEME.cream};
+}
+
+.recipe-list-item .recipe-list-time,
+.recipe-card .recipe-list-time
+{
+  color: ${THEME.orange};
+  font-weight: bold;
+}
+
+.recipe-list-item .recipe-list-summary
+{
+  color: ${THEME.taupe};
 }
 `;
 
