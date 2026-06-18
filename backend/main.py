@@ -162,6 +162,8 @@ def get_grocery_list(request: ListRequest):
                                     else:
                                         ingredient_mass += ingredient["amount"]
 
+                                    
+
                     if ingredient_quantity > 0:
                         f.write(f"{ingredient_quantity} count")
                         
