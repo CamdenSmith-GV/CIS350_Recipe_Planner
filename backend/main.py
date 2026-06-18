@@ -74,7 +74,7 @@ def get_recipes():
     return recipes
 
 
-@app.get("/getGroceryList")
+@app.get("/groceryList")
 def get_grocery_list(request: ListRequest):
 
     recipes = list(
