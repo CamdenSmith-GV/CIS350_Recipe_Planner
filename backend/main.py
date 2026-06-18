@@ -2,15 +2,33 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List
+from pymongo import MongoClient
+from typing import List, Dict, Optional
+from pydantic import BaseModel
 
-
+#Classes
+# allows us to easily call the ingreidents from the recipe and use them in the frontend
 class Ingredient(BaseModel):
     name: str
-    quantity: float
+    measurement_type: str  # "volume", "mass", "quantity"
+    amount: float
+    unit: Optional[str] = None
+
+# allows us to call the recipe and use it in the frontend, it also allows us to call the ingredients from the recipe and use them in the frontend
+class Recipe(BaseModel):
+    name: str
+    cook_time: int
+    ingredients: List[Ingredient]
 
 
 app = FastAPI(debug=True)
+
+client = MongoClient(
+    "mongodb+srv://calihanw_db_user:popcorn@cluster.ivrzvu1.mongodb.net/"
+)
+
+db = client["recipe_database"]
+recipe_collection = db["recipes"]
 
 origins = [
     "http://localhost:3000",
@@ -25,19 +43,48 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-memory_db = {"ingredients": []}
+@app.post("/createRecipe")
+def create_recipe(recipe: Recipe):
 
+    recipe_collection.insert_one(
+        recipe.model_dump()
+    )
 
-@app.get("/getIngredients", response_model=List[Ingredient])
-def get_ingredients():
-    return memory_db["ingredients"]
+    return recipe
 
+@app.get("/getRecipes")
+def get_recipes():
 
-@app.post("/createIngredient")
-def create_ingredient(ingredient: Ingredient):
-    memory_db["ingredients"].append(ingredient)
-    return ingredient
+    recipes = list(
+        recipe_collection.find(
+            {},
+            {"_id": 0}
+        )
+    )
 
+    return recipes
+
+@app.get("/getGroceryList")
+def get_grocery_list():
+
+    recipes = list(
+        recipe_collection.find(
+            {},
+            {"_id": 0}
+        )
+    )
+
+    for recipe in recipes:
+        for ingredient in recipe["ingredients"]:
+            ingredient["amount"] = ingredient["amount"] * 2
+
+    return recipes
+
+            {"_id": 0}
+        )
+    )
+
+    return recipes
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=3001)
