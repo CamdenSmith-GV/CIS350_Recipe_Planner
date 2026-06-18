@@ -13,6 +13,7 @@ import { THEME_STYLES } from "./constants";
 import api from './api';
 import RecipeList from "./components/RecipeList";
 import RecipeDisplay from "./components/RecipeDisplay";
+import SelectedRecipes from "./components/SelectedRecipes";
 
 function App()
 {
@@ -45,7 +46,15 @@ function App()
     });
   };
 
-  useEffect(() => 
+  const handleRemoveFromGroceryList = (recipe) =>
+  {
+    setGroceryList((prev) =>
+    {
+      return prev.filter((r) => r.id !== recipe.id);
+    });
+  };
+
+  useEffect(() =>
   {
     fetchRecipes();
   }, []);
@@ -64,12 +73,15 @@ function App()
       <>
        
         <div className="row mt-4">
-          <div className="col-md-4">
+          <div className="col-md-3">
             <RecipeList savedRecipes={savedRecipes} onSelectRecipe={handleSelectRecipe} />
 
           </div>
-          <div className="col-md-8">
+          <div className="col-md-7">
             <RecipeDisplay selectedRecipe={selectedRecipe} onAddToGroceryList={handleAddToGroceryList} />
+          </div>
+          <div className="col-md-2">
+            <SelectedRecipes groceryList={groceryList} onRemoveFromGroceryList={handleRemoveFromGroceryList} />
           </div>
         </div>
 
