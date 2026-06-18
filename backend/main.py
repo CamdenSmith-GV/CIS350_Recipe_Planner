@@ -74,7 +74,7 @@ def get_recipes():
     return recipes
 
 
-@app.get("/groceryList")
+@app.post("/groceryList")
 def get_grocery_list(request: ListRequest):
 
     recipes = list(
@@ -86,7 +86,7 @@ def get_grocery_list(request: ListRequest):
 
     for ID in request.recipe_ids:
         for recipe in recipes:
-            if recipe["_id"] == ID:
+            if recipe.get("id") == ID:
                 recipe["_id"] = str(recipe.pop("_id"))
                 break
 
