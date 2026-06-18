@@ -173,13 +173,13 @@ def get_grocery_list(request: ListRequest):
 
                     if ingredient_volume > 0:
                         if largest_volume == "L":
-                            f.write(f"{ingredient_volume / 1000} L + ")
+                            f.write(f"{ingredient_volume / 1000} L")
                         elif largest_volume == "cup":
-                            f.write(f"{ingredient_volume / 237} cups + ")
+                            f.write(f"{ingredient_volume / 237} cups")
                         elif largest_volume == "tbsp":
-                            f.write(f"{ingredient_volume / 15} tbsp + ")
+                            f.write(f"{ingredient_volume / 15} tbsp")
                         elif largest_volume == "tsp":
-                            f.write(f"{ingredient_volume / 5} tsp + ")
+                            f.write(f"{ingredient_volume / 5} tsp")
                         elif largest_volume == "ml":
                             f.write(f"{ingredient_volume} ml")
 
