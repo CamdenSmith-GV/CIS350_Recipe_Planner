@@ -1,4 +1,4 @@
-from urllib import request
+
 from ingredient import listIngredient 
 from format_output import formatOuput
 import uvicorn
@@ -7,10 +7,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
 from pymongo import MongoClient
-from typing import List, dict, Optional
 from pydantic import BaseModel
 from pymongo import MongoClient
-from typing import List, dict, Optional
+from typing import List, Optional
 from pydantic import BaseModel
 
 #Classes
