@@ -1,9 +1,15 @@
+
+from ingredient import listIngredient 
+from format_output import formatOuput
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from pydantic import BaseModel
 from pymongo import MongoClient
-from typing import List, Dict, Optional
+from pydantic import BaseModel
+from pymongo import MongoClient
+from typing import List, Optional
 from pydantic import BaseModel
 
 #Classes
@@ -21,6 +27,9 @@ class Recipe(BaseModel):
     instructions: str
     cook_time: int
     ingredients: List[Ingredient]
+
+class ListRequest(BaseModel):
+    recipe_ids: List[str]
 
 
 app = FastAPI(debug=True)
@@ -66,6 +75,43 @@ def get_recipes():
 
     return recipes
 
+
+@app.post("/groceryList")
+def get_grocery_list(request: ListRequest):
+
+    recipes = list(
+            recipe_collection.find({})
+        )
+
+    for recipe in recipes:
+        recipe["id"] = str(recipe.pop("_id"))
+
+    recipes = [recipe for recipe in recipes if recipe["id"] in request.recipe_ids]
+
+    # Loop through recipes
+    # If a new ingrediant is found make a new ingrediant object call add function
+    # Add ingrediant to the list of ingrediant objects
+    # If ingrediant with said name is in list only need to call add function
+    
+    ingredients = {}
+
+    for recipe in recipes:
+        for ingre in recipe["ingredients"]:
+            name = ingre["name"]
+            if name not in ingredients:
+                ingredients[name] = listIngredient(name)
+            ingredients[name].add(ingre["amount"], ingre["unit"])
+    
+    filename = formatOuput(ingredients)
+
+    with open(filename, "r") as f:
+        output = f.read()
+
+    return Response(
+        content=output,
+        media_type="text/plain",
+        headers={"Content-Disposition": "attachment; filename=grocery_list.txt"},
+    )
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=3001)
