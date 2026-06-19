@@ -98,10 +98,13 @@ def get_grocery_list(request: ListRequest):
     for recipe in recipes:
         for ingre in recipe["ingredients"]:
             name = ingre["name"]
-            if name not in ingredients:
-                ingredients[name] = listIngredient(name)
-            ingredients[name].add(ingre["amount"], ingre["unit"])
-    
+            key = name.lower().rstrip()
+            if len(key) > 1 and key[-1] == "s":
+                key = key[:-1]
+            if key not in ingredients:
+                ingredients[key] = listIngredient(name)
+            ingredients[key].add(ingre["amount"], ingre["unit"])
+
     filename = formatOuput(ingredients)
 
     with open(filename, "r") as f:
