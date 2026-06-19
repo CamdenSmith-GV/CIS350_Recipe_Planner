@@ -45,10 +45,10 @@ class listIngredient:
             self.count += amount
 
     def getString(self):
-        result = ""
+        result = self.name
         result_Q = result_V = result_M = "" 
         if self.count > 0: result_Q += f"{self.count} count"
         if self.ml > 0: result_V += f"{self.ml / VOLUME_TO_ML[self.vol_largest_unit]} {self.vol_largest_unit}"
         if self.g > 0: result_M += f"{self.g / MASS_TO_G[self.mass_largest_unit]} {self.mass_largest_unit}"
-        result = "+".join([x for x in (result_Q, result_V, result_M) if x])
+        result = result + ": " + " + ".join([x for x in (result_Q, result_V, result_M) if x])
         return result
