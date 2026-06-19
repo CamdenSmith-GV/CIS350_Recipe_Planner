@@ -69,10 +69,10 @@ class listIngredient:
         if self.count > 0: result_Q += f"{self.count} count"
 
         # formats volume items
-        if self.ml > 0: result_V += f"{self.ml / VOLUME_TO_ML[self.vol_largest_unit]} {self.vol_largest_unit}"
+        if self.ml > 0: result_V += f"{round(self.ml / VOLUME_TO_ML[self.vol_largest_unit], 2)} {self.vol_largest_unit}"
 
         # formats mass items
-        if self.g > 0: result_M += f"{self.g / MASS_TO_G[self.mass_largest_unit]} {self.mass_largest_unit}"
+        if self.g > 0: result_M += f"{round(self.g / MASS_TO_G[self.mass_largest_unit], 2)} {self.mass_largest_unit}"
 
         # combines the different types of units into one string with the correct formatting
         result = result + ": " + " + ".join([x for x in (result_Q, result_V, result_M) if x])

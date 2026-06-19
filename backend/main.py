@@ -157,3 +157,7 @@ def get_grocery_list(request: ListRequest):
 # this is what will run the server
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=3001)
+    """ 
+    use this to run the server
+    py -m uvicorn main:app --reload --port 3001
+    """
