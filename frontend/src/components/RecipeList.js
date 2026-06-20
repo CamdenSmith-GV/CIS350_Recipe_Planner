@@ -1,6 +1,6 @@
 /**
  * @file ./frontend/src/components/RecipeList.js
- * @author Camden Smith
+ * @author Camden, William, Jasper
  * @course CIS350
  * @date 6/12/2026
  * @brief Recipe selection list group.
@@ -25,7 +25,7 @@ function RecipeList({ savedRecipes = [], onSelectRecipe }) {
   /**
    * @brief Marks a recipe as selected and tells the app about it.
    *
-   * Saves the id so the button shows as active, then calls the parent handler.
+   * Saves the id so the button shows as active, then calls the app handler.
    *
    * @param id The id of the recipe that was clicked.
    */

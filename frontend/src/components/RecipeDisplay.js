@@ -1,6 +1,6 @@
 /**
  * @file ./frontend/src/components/RecipeDisplay.js
- * @author Camden Smith
+ * @author Camden, William, Jasper
  * @course CIS350
  * @date 6/12/2026
  * @brief Displays the details of the selected recipe.

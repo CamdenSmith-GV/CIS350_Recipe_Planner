@@ -1,6 +1,6 @@
 /**
  * @file ./frontend/src/components/RecipePlanner.js
- * @author Camden Smith
+ * @author Camden, William, Jasper
  * @course CIS350
  * @date 6/5/2026
  * @brief Recipe planner: enter ingrediants, name, summary, cook time, and instructions
