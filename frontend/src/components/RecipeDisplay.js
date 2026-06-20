@@ -8,6 +8,16 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { formatCookTime } from "../constants";
 
+/**
+ * @brief Shows the details of the selected recipe.
+ *
+ * Shows the name, cook time, summary, ingredients, and instructions. If no
+ * recipe is picked it shows a message instead.
+ *
+ * @param selectedRecipe The recipe to show (or null if none is picked).
+ * @param onAddToGroceryList Called to add the recipe to the shopping list.
+ * @return The recipe display page.
+ */
 function RecipeDisplay({ selectedRecipe, onAddToGroceryList }) {
     if (!selectedRecipe) 
     {
@@ -19,7 +29,15 @@ function RecipeDisplay({ selectedRecipe, onAddToGroceryList }) {
         );
     }
 
-    const formatIngredient = (ingredient) => 
+    /**
+     * @brief Turns an ingredient into a readable string.
+     *
+     * Quantity ingredients skip the unit, everything else includes it.
+     *
+     * @param ingredient The ingredient to format.
+     * @return A string like "2 cups flour".
+     */
+    const formatIngredient = (ingredient) =>
     {
         if (ingredient.measurement_type === "quantity")
         {
@@ -28,6 +46,11 @@ function RecipeDisplay({ selectedRecipe, onAddToGroceryList }) {
         return `${ingredient.amount} ${ingredient.unit} ${ingredient.name}`;
     };
 
+    /**
+     * @brief Adds the selected recipe to the shopping list.
+     *
+     * Passes the current recipe up to the parent's handler.
+     */
     const addToList = () =>
     {
         onAddToGroceryList(selectedRecipe);
