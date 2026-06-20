@@ -3,7 +3,8 @@
  * @author Camden Smith
  * @course CIS350
  * @date 6/5/2026
- * @brief Recipe planner: enter ingredients one at a time and list them.
+ * @brief Recipe planner: enter ingrediants, name, summary, cook time, and instructions
+ *  this creates a recipe "object"
  */
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,6 +18,13 @@ import
   createEmptyIngredient,
 } from "../constants";
 
+/**
+ * @brief The main Recipe Planner component.
+ *
+ * Keeps track of the recipe form and the list of ingredients the user adds.
+ *
+ * @return The Recipe Planner page.
+ */
 function RecipePlanner()
 {
   const [savedRecipes, setSavedRecipes] = useState([]);
@@ -31,16 +39,30 @@ function RecipePlanner()
   const hourOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const minuteOptions = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 
+  /**
+   * @brief Updates the ingredient being typed in.
+   * @param changes The fields to change on the current ingredient.
+   */
   const updateRow = (changes) =>
   {
     setCurrentIngredient((current) => ({ ...current, ...changes }));
   };
 
+  /**
+   * @brief Changes the measurement type and clears the old unit and amount.
+   * @param measurementType The new measurement type (quantity, volume or mass).
+   */
   const handleMeasurementTypeChange = (measurementType) =>
   {
     updateRow({ measurementType, unit: "", amount: "" });
   };
 
+  /**
+   * @brief Adds the current ingredient to the list.
+   *
+   * Checks that the name, measurement type and amount are filled in first
+   * (and a unit too if it isn't a quantity). If anything is missing it stops.
+   */
   const addIngredient = () =>
   {
     if (currentIngredient.name.trim() === "")
@@ -74,7 +96,12 @@ function RecipePlanner()
     unitOptions = MASS_UNITS;
   }
 
-  const formatIngredient = (ingredient) => 
+  /**
+   * @brief Turns an ingredient into a readable string.
+   * @param ingredient The ingredient to format.
+   * @return A string of ingrediant
+   */
+  const formatIngredient = (ingredient) =>
   {
     if (ingredient.measurementType === "quantity")
     {
@@ -83,6 +110,12 @@ function RecipePlanner()
     return `${ingredient.amount} ${ingredient.unit} ${ingredient.name}`;
   };
 
+  /**
+   * @brief Builds the recipe and sends it to the backend.
+   *
+   * Does nothing if there are no ingredients. Otherwise it puts the recipe
+   * together, posts it, saves it, and resets the form so a new one can start.
+   */
   const addRecipe = () =>
   {
     if (ingredientList.length === 0) {
@@ -104,6 +137,10 @@ function RecipePlanner()
       }))
     };
 
+    /**
+     * @brief Posts a recipe to the backend API.
+     * @param recipe The recipe object to send.
+     */
     const sendRecipe = async (recipe) =>
     {
       await api.post('/createRecipe', recipe);
