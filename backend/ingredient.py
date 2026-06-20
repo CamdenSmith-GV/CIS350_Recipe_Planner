@@ -19,6 +19,10 @@ MASS_TO_G = {
     "g": 1,
 }
 
+# used to make sure there are no unnessacary zeros for whole numbers
+def clean(num):
+    return int(num) if num == int(num) else round(num, 2)
+
 class listIngredient:
     """
     This class will track a single ingredient accross multiple recipes (this is called when the grocery list is being made)
@@ -42,7 +46,10 @@ class listIngredient:
         This adds a new amount of the ingredient to the total amount and converts it to the smallest unit of volume or mass if needed
         volume to mL, mass to g, and quantities are just added together 
         """
-        if unit in VOLUME_TO_ML:
+        if amount < 0:
+            raise ValueError("Negative amounts not allowed")
+
+        elif unit in VOLUME_TO_ML:
             self.ml += amount * VOLUME_TO_ML[unit]
             
             if VOLUME_TO_ML[self.vol_largest_unit] < VOLUME_TO_ML[unit]:
@@ -66,13 +73,13 @@ class listIngredient:
         result_Q = result_V = result_M = "" 
 
         # formats count items
-        if self.count > 0: result_Q += f"{self.count} count"
+        if self.count > 0: result_Q += f"{clean(self.count)} count"
 
         # formats volume items
-        if self.ml > 0: result_V += f"{round(self.ml / VOLUME_TO_ML[self.vol_largest_unit], 2)} {self.vol_largest_unit}"
+        if self.ml > 0: result_V += f"{clean(self.ml / VOLUME_TO_ML[self.vol_largest_unit])} {self.vol_largest_unit}"
 
         # formats mass items
-        if self.g > 0: result_M += f"{round(self.g / MASS_TO_G[self.mass_largest_unit], 2)} {self.mass_largest_unit}"
+        if self.g > 0: result_M += f"{clean(self.g / MASS_TO_G[self.mass_largest_unit])} {self.mass_largest_unit}"
 
         # combines the different types of units into one string with the correct formatting
         result = result + ": " + " + ".join([x for x in (result_Q, result_V, result_M) if x])
