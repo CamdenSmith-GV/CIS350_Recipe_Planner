@@ -3,14 +3,19 @@
  * @author Camden Smith
  * @course CIS350
  * @date 6/5/2026
- * @brief Shared constants and helpers for ingredient entry.
+ * @brief Shared constants and helpers: measurement units, theme colors,
+ *  the theme styles, and small helper functions used across the app.
  */
 
 export const VOLUME_UNITS = ["tsp", "tbsp", "fl oz", "cup", "pint", "quart", "gallon", "mL", "L"];
 export const MASS_UNITS = ["oz", "lbs", "g", "kg"];
 
-// Colors used for the recipe planner theme
-export const THEME = 
+/**
+ * @brief The colors used for the recipe planner theme.
+ *
+ * Keeps all the hex colors in one place so the styles can reuse them.
+ */
+export const THEME =
 {
   white: "#FFFFFF",
   cream: "#F5EEE6",
@@ -20,6 +25,12 @@ export const THEME =
   taupe: "#80766B",
 };
 
+/**
+ * @brief All of the CSS styles for the recipe planner theme.
+ *
+ * One big style string built from the THEME colors above. It gets put on the
+ * page so everything uses the same look.
+ */
 export const THEME_STYLES = `
 .recipe-page
 {
@@ -205,6 +216,11 @@ export const THEME_STYLES = `
 `;
 
 
+/**
+ * @brief Turns a number of minutes into a readable cook time.
+ * @param minutes The total cook time in minutes.
+ * @return A string like "1h 30m", "2h", or "45m".
+ */
 export const formatCookTime = (minutes) =>
 {
   const hours = Math.floor(minutes / 60);
@@ -221,6 +237,10 @@ export const formatCookTime = (minutes) =>
   return `${mins}m`;
 };
 
+/**
+ * @brief Makes a new blank ingredient.
+ * @return An empty ingredient object with all fields set to "".
+ */
 export const createEmptyIngredient = () =>
 ({
   name: "",
