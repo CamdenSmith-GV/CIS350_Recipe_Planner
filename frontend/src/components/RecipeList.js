@@ -7,6 +7,7 @@
  */
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
+import { formatCookTime } from "../constants";
 
 function RecipeList({ savedRecipes = [], onSelectRecipe }) {
   const [selectedId, setSelectedId] = useState(null);
@@ -31,7 +32,7 @@ function RecipeList({ savedRecipes = [], onSelectRecipe }) {
           >
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{recipe.name}</h5>
-              <small className="recipe-list-time">{recipe.cookTime} min</small>
+              <small className="recipe-list-time">{formatCookTime(recipe.cook_time)}</small>
             </div>
             <p className="mb-1 recipe-list-summary">{recipe.summary}</p>
           </button>

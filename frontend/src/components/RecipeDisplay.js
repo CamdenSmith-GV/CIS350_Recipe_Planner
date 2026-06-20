@@ -6,6 +6,7 @@
  * @brief Displays the details of the selected recipe.
  */
 import "bootstrap/dist/css/bootstrap.min.css";
+import { formatCookTime } from "../constants";
 
 function RecipeDisplay({ selectedRecipe, onAddToGroceryList }) {
     if (!selectedRecipe) 
@@ -37,7 +38,7 @@ function RecipeDisplay({ selectedRecipe, onAddToGroceryList }) {
             <div className="card recipe-card p-4 shadow-sm">
                 <div className="d-flex w-100 justify-content-between">
                     <h1 className="recipe-title">{selectedRecipe.name}</h1>
-                    <h5 className="recipe-list-time">{selectedRecipe.cook_time} min</h5>
+                    <h5 className="recipe-list-time">{formatCookTime(selectedRecipe.cook_time)}</h5>
                 </div>
 
                 <p className="recipe-list-summary">{selectedRecipe.summary}</p>
