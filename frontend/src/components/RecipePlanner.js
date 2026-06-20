@@ -43,7 +43,20 @@ function RecipePlanner()
 
   const addIngredient = () =>
   {
-    if (currentIngredient.name.trim() === "") {
+    if (currentIngredient.name.trim() === "")
+    {
+      return;
+    }
+    if (currentIngredient.measurementType === "")
+    {
+      return;
+    }
+    if (currentIngredient.amount === "")
+    {
+      return;
+    }
+    if (currentIngredient.measurementType !== "quantity" && currentIngredient.unit === "")
+    {
       return;
     }
     setIngredientList([...ingredientList, currentIngredient]);
