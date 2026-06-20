@@ -58,14 +58,20 @@ function App()
   {
     fetchRecipes();
   }, []);
-  
+
+  const handleExitPlanner = () =>
+  {
+    setShowPlanner(false);
+    fetchRecipes();
+  };
+
   let content;
   if (showPlanner)
   {
     content =
     (
       <>
-        <button className="btn custom-red-btn mb-3" onClick={() => setShowPlanner(false)}>
+        <button className="btn custom-red-btn mb-3" onClick={handleExitPlanner}>
           Exit Recipe Planner
         </button>
         <RecipePlanner savedRecipes={savedRecipes} />
