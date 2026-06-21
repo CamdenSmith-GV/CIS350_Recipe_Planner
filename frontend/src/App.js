@@ -1,6 +1,6 @@
 /**
  * @file ./frontend/src/App.js
- * @author Camden Smith
+ * @author Camden, William, Jasper
  * @course CIS350
  * @date 6/5/2026
  * @brief Top-level app shell.
@@ -15,9 +15,21 @@ import RecipeList from "./components/RecipeList";
 import RecipeDisplay from "./components/RecipeDisplay";
 import SelectedRecipes from "./components/SelectedRecipes";
 
+/**
+ * @brief The top-level app component.
+ *
+ * Loads the saved recipes and either shows the recipe planner or the main
+ * view (recipe list, the selected recipe, and the grocery list). Keeps all
+ * the shared state and passes it down to the components.
+ *
+ * @return The whole app.
+ */
 function App()
 {
-  const fetchRecipes = async () => 
+  /**
+   * @brief Gets the saved recipes from the backend and stores them.
+   */
+  const fetchRecipes = async () =>
   {
     const response = await api.get("/getRecipes");
     setSavedRecipes(response.data);
@@ -28,12 +40,20 @@ function App()
   const [groceryList, setGroceryList] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
+  /**
+   * @brief Finds the clicked recipe and sets it as the selected one.
+   * @param id The id of the recipe that was clicked.
+   */
   const handleSelectRecipe = (id) =>
   {
     const recipe = savedRecipes.find((r) => r.id === id);
     setSelectedRecipe(recipe);
   };
 
+  /**
+   * @brief Adds a recipe to the grocery list if it isn't already there.
+   * @param recipe The recipe to add.
+   */
   const handleAddToGroceryList = (recipe) =>
   {
     setGroceryList((prev) =>
@@ -46,6 +66,10 @@ function App()
     });
   };
 
+  /**
+   * @brief Removes a recipe from the grocery list.
+   * @param recipe The recipe to remove.
+   */
   const handleRemoveFromGroceryList = (recipe) =>
   {
     setGroceryList((prev) =>
@@ -58,14 +82,25 @@ function App()
   {
     fetchRecipes();
   }, []);
-  
+
+  /**
+   * @brief Closes the recipe planner and reloads the recipes.
+   *
+   * Refetches so any recipe just added shows up in the list.
+   */
+  const handleExitPlanner = () =>
+  {
+    setShowPlanner(false);
+    fetchRecipes();
+  };
+
   let content;
   if (showPlanner)
   {
     content =
     (
       <>
-        <button className="btn custom-red-btn mb-3" onClick={() => setShowPlanner(false)}>
+        <button className="btn custom-red-btn mb-3" onClick={handleExitPlanner}>
           Exit Recipe Planner
         </button>
         <RecipePlanner savedRecipes={savedRecipes} />

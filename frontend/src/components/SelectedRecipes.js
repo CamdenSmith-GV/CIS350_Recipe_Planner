@@ -1,6 +1,6 @@
 /**
  * @file ./frontend/src/components/SelectedRecipes.js
- * @author Camden Smith
+ * @author Camden, William, Jasper
  * @course CIS350
  * @date 6/18/2026
  * @brief Small column listing the recipes added to the shopping list.
@@ -8,9 +8,25 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../api";
 
+/**
+ * @brief Shows the recipes added to the shopping list.
+ *
+ * Lists each added recipe with a remove button, and a button to download the
+ * grocery list. If nothing is added it shows an empty message instead.
+ *
+ * @param groceryList The recipes that have been added to the list.
+ * @param onRemoveFromGroceryList Called with a recipe to remove it from the list.
+ * @return The selected recipes column.
+ */
 function SelectedRecipes({ groceryList = [], onRemoveFromGroceryList }) {
 
-  const handleDownload = async () => 
+  /**
+   * @brief Downloads the grocery list as a text file.
+   *
+   * Sends the recipe ids to the backend, then turns the response into a file
+   * and clicks a link to download it.
+   */
+  const handleDownload = async () =>
   {
     const ids = groceryList.map((recipe) => recipe.id);
     const response = await api.post("/groceryList", { recipe_ids: ids });
