@@ -123,8 +123,15 @@ The user needs to run the frontend and the backend at the same time. In the fron
 ### Risk Mitigation Strategies
 
 - **Technical Risks:**
+  - The database holds no personal, private, or sensitive data, so a leak would not expose anything important.
+  - The hardcoded password is not a real or reused password, so it does not actually put anything at risk.
+  - The app's functionality has been tested extensively by hand.
 - **Operational Risks:**
+  - The MongoDB cluster runs on AWS, which has around 99.99% uptime, so downtime should be rare.
+  - User accounts are planned as a future addition. (If the project were to be continued past this course)
 - **Market Risks:**
+  - AI features are planned. (If the project were to be continued past this course)
+  - The architecture makes it easy to add new features as needs change.
 
 ---
 
