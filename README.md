@@ -47,15 +47,59 @@ The app is split into three parts. The React frontend is where you create recipe
 
 ## 4.1 Starting the Application
 
+The user needs to run the frontend and the backend at the same time. In the frontend folder the user runs `npm start` to launch the React app, and in the backend folder runs `py -m uvicorn main:app --reload --port 3001` to start the server. Once both are running, the user can open the app in their browser.
+
 ## 4.2 Home Screen
+
+<p align="center">
+  <img width="850" alt="Home screen" src="https://github.com/user-attachments/assets/dbdc7124-b0d8-45e9-b810-fdee81e4792a" />
+  <br>
+  The landing page lists your saved recipes and links out to the recipe planner.
+</p>
 
 ## 4.3 Creating a Recipe
 
+<p align="center">
+  <img width="800" alt="Recipe planner" src="https://github.com/user-attachments/assets/63a07e9d-90c2-41d8-8d76-838df8378373" />
+  <br>
+  The recipe planner, where you set the name, summary, ingredients, instructions, and cook time. Added ingredients show in the panel on the right.
+</p>
+
+<p align="center">
+  <img width="620" alt="Adding a volume ingredient" src="https://github.com/user-attachments/assets/4ab67f7d-f8f3-474b-983b-46d69f12baca" />
+  <br>
+  Adding an ingredient measured by volume, like 2 cups of flour.
+</p>
+
+<p align="center">
+  <img width="620" alt="Adding a mass ingredient" src="https://github.com/user-attachments/assets/f9437eaf-fd35-4a95-8588-0610ef8cdac3" />
+  <br>
+  Adding an ingredient measured by mass, with a name, unit, and amount.
+</p>
+
 ## 4.4 Viewing Saved Recipes
 
-## 4.5 Recipe Details
+<p align="center">
+  <img width="850" alt="Recipe details" src="https://github.com/user-attachments/assets/c63e0932-e1e8-4a11-893e-9a7219d60696" />
+  <br>
+  Picking a saved recipe shows its full details, ingredients, and instructions.
+</p>
+
+## 4.5 Add to Grocery List
+
+<p align="center">
+  <img width="850" alt="Add to grocery list" src="https://github.com/user-attachments/assets/2e1e29c6-f975-4a09-a3e8-a55d784382e0" />
+  <br>
+  Recipes you add land in the Selected panel, and the button downloads the grocery list for them.
+</p>
 
 ## 4.6 Grocery List
+
+<p align="center">
+  <img width="250" alt="Downloaded grocery list" src="https://github.com/user-attachments/assets/f8bfe42a-1f47-40ca-b1dc-68eb7d8defda" />
+  <br>
+  The downloaded list combines ingredients across the recipes and keeps volume and mass separate when they cannot be merged.
+</p>
 
 
 ---
