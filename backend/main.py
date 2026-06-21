@@ -34,6 +34,9 @@ class Recipe(BaseModel):
     cook_time: int
     ingredients: List[Ingredient]
 
+class ListRequest(BaseModel):
+    recipe_ids: List[str]
+
 
 # this class is used to get the list of recipe ids from the frontend and use them in the backend to generate the grocery list
 class ListRequest(BaseModel):
