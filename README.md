@@ -133,8 +133,21 @@ We used Jira to plan and track the project throughout development. The work was 
 
 ### Expansion of Features
 
+- Let the user tune the grocery list before downloading it. If you already have eggs, remove them; if you still need bbq sauce, add it.
+- Export the grocery list directly as a PDF instead of a text file.
+- Add pictures to recipes. We were limited here by the storage caps on the free database tier.
+- AI powered features:
+  - Use a low cost LLM to combine amounts that are in different units, like 2 lbs of flour plus 2 cups of flour.
+  - Recipe generation. A button that pulls up new recipe ideas right inside the app.
+
 ### Technical Enhancements
+
+- Host the web app on a server. Right now the app only runs locally: the frontend on `localhost:3000` and the backend on `localhost:3001`, so only the person running it can use it. 
+- More database capacity, since the current setup is on the free tier.
+- Logins and personal recipes for each user.
 
 ---
 
 # 9 Conclusion
+
+Grocery Studio does what we set out to build. You can save your recipes, keep them in one place, and turn the ones you plan to cook into a single grocery list that combines repeated ingrediants and sorts out the units for you. It runs on a React frontend, a FastAPI backend, and a MongoDB database, with the work split cleanly across those three parts. There is still plenty we would add, like editing the list before downloading, user logins, and hosting the app online, but as a first version it covers the core idea well and gives us a good foundation and proof of concept.
