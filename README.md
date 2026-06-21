@@ -88,9 +88,23 @@ The app is split into three parts. The React frontend is where you create recipe
 
 ### What Went Well
 
+- We are happy with the frontend UI. It is intuitive and looks good.
+- The Python backend is organized well for creating recipes and parsing them into grocery lists. The logic is split across clear files: the API endpoints live in `main.py`, the ingredient combining and unit conversion lives in `ingredient.py`, and the output formatting lives in `format_output.py`. The code is easy to follow and build on.
+- The unit tests and integration tests run successfully through CI/CD with GitHub Actions.
+
 ### Areas for Improvement
 
+- We need to use Jira more consistently and actually keep up with it during the week.
+- The frontend uses Bootstrap, which is nice and looks good, but it would be nicer to write the styling in plain CSS and HTML for more control over the look instead of leaning premade UI.
+- We should offload more of the work to the backend instead of relying so heavily on frontend JavaScript.
+
 ### Lessons Learned
+
+- Start the frontend UI early.
+- Start the backend GET and POST endpoints early.
+  - The frontend cannot do much without data to show, and the backend is hard to work on without something calling it.
+- Start writing tests early instead of saving them all for the end.
+- Put more effort into getting the diagrams right up front.
 
 ---
 
