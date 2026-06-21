@@ -69,7 +69,7 @@ def test_get_grocery_list():
 
     # make the grocery list of just the test recipe
     response = get_grocery_list(ListRequest(recipe_ids=[recipe_id]))
-    output = response.body.decsode()
+    output = response.body.decode()
 
     # Volumes are (2 cup + 2 tbsp) = 2.13 cup, and the
     # 500g should be written on the same line
