@@ -126,8 +126,16 @@ The user needs to run the frontend and the backend at the same time. In the fron
 
 
 ---
+# 5 Testing
+We tested the backend with pytest, covering 77 tests across four files: `test_main.py` for the python classes, `test_mongodb_fixture.py` and `test_update_mongodb.py` for the database, and `test_recipe_integration.py` for the recipe flow end to end. All 77 passed, and they ran automatically through GitHub Actions on every push.
 
-# 5 Risk Analysis
+<p align="center">
+  <img width="700" alt="Pytest results" src="https://github.com/user-attachments/assets/75964e7a-0046-4bd6-b696-d8abc9ab431d" />
+  <br>
+  <em>All 77 backend tests passing in the GitHub Actions CI run.</em>
+</p>
+
+# 6 Risk Analysis
 
 ### Risk Identification
 
@@ -158,7 +166,7 @@ The user needs to run the frontend and the backend at the same time. In the fron
 
 ---
 
-# 6 Retrospective
+# 7 Retrospective
 
 ### What Went Well
 
@@ -182,7 +190,7 @@ The user needs to run the frontend and the backend at the same time. In the fron
 
 ---
 
-# 7 Project Management
+# 8 Project Management
 
 We used Jira to plan and track the project throughout development. The work was split into three sprints, with tasks assigned to each member and moved across the board as they were started, worked on, and finished. Each sprint held smaller, manageable pieces of work such as building the sequence diagram or adding unit tests, which broke the project down into clear steps. This kept a large project feeling approachable and easy to divide among the team.
 
@@ -199,7 +207,7 @@ We used Jira to plan and track the project throughout development. The work was 
 </p>
 
 
-# 8 Future Scope
+# 9 Future Scope
 
 ### Expansion of Features
 
@@ -218,6 +226,6 @@ We used Jira to plan and track the project throughout development. The work was 
 
 ---
 
-# 9 Conclusion
+# 10 Conclusion
 
 Grocery Studio does what we set out to build. You can save your recipes, keep them in one place, and turn the ones you plan to cook into a single grocery list that combines repeated ingrediants and sorts out the units for you. It runs on a React frontend, a FastAPI backend, and a MongoDB database, with the work split cleanly across those three parts. There is still plenty we would add, like editing the list before downloading, user logins, and hosting the app online, but as a first version it covers the core idea well and gives us a good foundation and proof of concept.
