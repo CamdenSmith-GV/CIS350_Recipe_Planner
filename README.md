@@ -36,10 +36,33 @@ The app is split into three parts. The React frontend is where you create recipe
 
 ## 3.1 Class Diagram
 
+<p align="center">
+  <img width="650" alt="Class diagram" src="https://github.com/user-attachments/assets/1bf783e1-d301-45ff-8d6a-e36a26503acc" />
+  <br>
+  <em>Class Diagram</em>
+</p>
+
 ## 3.2 Use Case Diagram
+
+<p align="center">
+  <img width="550" alt="Use case diagram" src="https://github.com/user-attachments/assets/e9e7275c-b26c-4e19-81cc-ec1935ff2e75" />
+  <br>
+  <em>Use Case Diagram</em>
+</p>
 
 ## 3.3 Sequence Diagram
 
+<p align="center">
+  <img width="500" alt="Add to shopping list sequence diagram" src="https://github.com/user-attachments/assets/514f3f30-9913-495a-9325-5e014829395d" />
+  <br>
+  <em>Sequence Diagram: Add/Remove Recipe and Download Grocery List</em>
+</p>
+
+<p align="center">
+  <img width="500" alt="Add recipe sequence diagram" src="https://github.com/user-attachments/assets/a2296958-5592-4b8a-b19c-a54d3782dcb0" />
+  <br>
+  <em>Sequence Diagram: Recipe Planner / Add Recipe</em>
+</p>
 
 ---
 
@@ -163,22 +186,18 @@ The user needs to run the frontend and the backend at the same time. In the fron
 
 We used Jira to plan and track the project throughout development. The work was split into three sprints, with tasks assigned to each member and moved across the board as they were started, worked on, and finished. Each sprint held smaller, manageable pieces of work such as building the sequence diagram or adding unit tests, which broke the project down into clear steps. This kept a large project feeling approachable and easy to divide among the team.
 
-
-<img width="1890" height="1416" alt="image" src="https://github.com/user-attachments/assets/69ef5c7a-c512-4ea2-b06d-906694215915" />
-<img width="3158" height="784" alt="image" src="https://github.com/user-attachments/assets/8bfd8914-9264-452a-a477-ca3916888196" />
-
 <p align="center">
   <img width="800" alt="Jira task overview" src="https://github.com/user-attachments/assets/69ef5c7a-c512-4ea2-b06d-906694215915" />
   <br>
-  Figure 1: Full task list in Jira across all three sprints.
+  Full task list in Jira across all three sprints.
 </p>
 
 <p align="center">
   <img width="1000" alt="Jira sprint board" src="https://github.com/user-attachments/assets/8bfd8914-9264-452a-a477-ca3916888196" />
   <br>
-  Figure 2: Jira board for the third sprint.
+  Jira board for the third sprint.
 </p>
----
+
 
 # 8 Future Scope
 
